@@ -12,6 +12,11 @@ namespace RestaurantReviewsLibrary
     {
         private static RestaurantCrud crud = new RestaurantCrud();
 
+        public static void DeleteFromDatabase(int id)
+        {
+            crud.DeleteRestaurant(id);
+        }
+
         public static void AddRestaurant(Restaurant restaurant)
         {
             var temp = LibraryToData(restaurant);

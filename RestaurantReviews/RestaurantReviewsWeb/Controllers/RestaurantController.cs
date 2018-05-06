@@ -80,19 +80,19 @@ namespace RestaurantReviewsWeb.Controllers
         }
 
         // GET: Restaurant/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteRestaurant(int id)
         {
-            return View();
+            return View(LibHelper.GetRestaurantById(id));
         }
 
         // POST: Restaurant/Delete/5
         [HttpPost]
-        public ActionResult DeleteRestaurant(int id)
+        public ActionResult DeleteRestaurant(int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                LibHelper.DeleteFromDatabase(id);
                 return RedirectToAction("Index");
             }
             catch
