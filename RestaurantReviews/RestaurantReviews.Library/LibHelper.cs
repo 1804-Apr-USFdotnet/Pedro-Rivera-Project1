@@ -10,25 +10,27 @@ namespace RestaurantReviewsLibrary
 {
     public static class LibHelper
     {
-        private static RestaurantDBEntities db;
-        static public IEnumerable<RestaurantReviewsLibrary.Restaurant> GetRestaurants()
+        private static RestaurantCrud crud = new RestaurantCrud();
+
+        public static void AddRestaurant(Restaurant restaurant)
         {
-            IEnumerable<RestaurantReviewsLibrary.Restaurant> result;
-            using (db = new RestaurantDBEntities())
-            {
-                var dataList = db.Restaurants.ToList();
-                result = dataList.Select(x => DataToLibrary(x)).ToList();
-            }
-            return result;
+            var temp = LibraryToData(restaurant);
+            crud.InsertRestaurant(temp);
+        } 
+
+        static public ICollection<Restaurant> ShowAllRestaurants()
+        {
+            return DataListToLibraryList(crud.ListRestaurants());
         }
 
-        static public void AddRestaurant(Restaurant item)
+        public static ICollection<Review> ShowAllReviews(int id)
         {
-            using (var db = new RestaurantDBEntities())
-            {
-                db.Restaurants.Add(LibraryToData(item));
-                db.SaveChanges();
-            }
+            return DataReviewListToLibraryReviewList(crud.GetReviewsById(id));
+        }
+
+        static public Restaurant GetRestaurantById(int id)
+        {
+            return DataToLibrary(crud.getRestaurantById(id));
         }
         // mapping
         
@@ -49,7 +51,11 @@ namespace RestaurantReviewsLibrary
         }
 
         public static RestaurantReviewsLibrary.Restaurant DataToLibrary(RestaurantReviewsData.Restaurant dataModel)
-        {   
+        {
+            var reviews = ShowAllReviews(dataModel.ID);
+            
+
+
             var libModel = new RestaurantReviewsLibrary.Restaurant()
             {
                 RestaurantName = dataModel.restaurantName,
@@ -58,9 +64,14 @@ namespace RestaurantReviewsLibrary
                 RestaurantState = dataModel.restaurantState,
                 RestaurantPhoneNumber = dataModel.restaurantPhoneNumber,
                 RestaurantURL = dataModel.restaurantURL,
-                CustomerRating = (float)dataModel.customerRating
+                //CustomerRating = (float)dataModel.customerRating,
+                
+
+                StoreReviews = (List<Review>)reviews,
+                Id = dataModel.ID
                 
             };
+            libModel.UpdateRating();    
             return libModel;
         }
 
@@ -79,7 +90,7 @@ namespace RestaurantReviewsLibrary
             List<RestaurantReviewsLibrary.Review> tempList = libModel.GetStoreReviews();
             foreach(RestaurantReviewsLibrary.Review r in tempList)
             {
-                dataModel.Reviews.Add(ReviewOjectToData(r));
+                dataModel.Reviews.Add(ReviewObjectToData(r));
             }
             return dataModel;
         }
@@ -87,16 +98,17 @@ namespace RestaurantReviewsLibrary
         {
             var libModel = new RestaurantReviewsLibrary.Review()
             {
-                RestaurantID = data.ID,
+                RestaurantID = data.restaurantID,
                 ReviewerName = data.reviewerName,
                 ReviewText = data.reviewText,
-                ReviewScore = (float)data.reviewScore
+                ReviewScore = (float)data.reviewScore,
+                Id = data.ID
 
             };
             return libModel;
         }
 
-        public static RestaurantReviewsData.Review ReviewOjectToData(RestaurantReviewsLibrary.Review obj)
+        public static RestaurantReviewsData.Review ReviewObjectToData(RestaurantReviewsLibrary.Review obj)
         {
             var dataModel = new RestaurantReviewsData.Review()
             {
@@ -104,6 +116,7 @@ namespace RestaurantReviewsLibrary
                 reviewerName = obj.ReviewerName,
                 reviewText = obj.ReviewText,
                 reviewScore = obj.ReviewScore
+                
             };
             return dataModel;
         }

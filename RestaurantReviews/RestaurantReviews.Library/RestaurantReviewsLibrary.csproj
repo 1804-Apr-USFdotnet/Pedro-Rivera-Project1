@@ -53,8 +53,8 @@
     <Compile Include="Deserialize.cs" />
     <Compile Include="LibHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Restaurant.cs" />
-    <Compile Include="Review.cs" />
+    <Compile Include="Models\Restaurant.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="SortLogic.cs" />
     <Compile Include="UserInteractor.cs" />

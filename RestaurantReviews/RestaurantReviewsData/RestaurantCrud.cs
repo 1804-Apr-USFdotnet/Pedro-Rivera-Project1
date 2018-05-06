@@ -29,6 +29,12 @@ namespace RestaurantReviewsData
             db.Restaurants.Add(newRest);
             db.SaveChanges();
         }
+
+        public void InsertRestaurant(Restaurant restaurant)
+        {
+            db.Restaurants.Add(restaurant);
+            db.SaveChanges();
+        }
         //Read Supplement
         public ICollection<Restaurant> ListRestaurants()
         {
@@ -46,12 +52,16 @@ namespace RestaurantReviewsData
             Restaurant rest = getRestaurantById(IdNum);
             Console.WriteLine(rest.ID + "|| " + rest.restaurantName + "|| " + rest.restaurantAddress + "|| " + rest.restaurantCity + ", " + rest.restaurantState + "|| " + rest.restaurantPhoneNumber + "|| " + rest.restaurantURL + "|| Rating: " + rest.customerRating);
         }
+
+
         //Search Restaurant by id (Update Supplement)
         public Restaurant getRestaurantById(int idNumber)
         {
-            Restaurant temp = db.Restaurants.Find(idNumber);
+            var temp = db.Restaurants.Find(idNumber);
             return temp;
         }
+
+
         //Update
         public void UpdateRestaurant(int id, ColumnChoice choiceName, string replacement)
         {

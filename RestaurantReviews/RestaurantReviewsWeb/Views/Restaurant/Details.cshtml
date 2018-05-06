@@ -1,0 +1,68 @@
+﻿@model RestaurantReviewsLibrary.Restaurant
+
+<div>
+    <h4>Restaurant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantPhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerRating)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -14,6 +14,7 @@ namespace RestaurantReviewsLibrary
             reviewText = "Dummy Text";
             reviewScore = 0;
         }
+        private int id;
         private string reviewerName;
         private string reviewText;
         private float reviewScore;
@@ -23,6 +24,7 @@ namespace RestaurantReviewsLibrary
         public string ReviewerName { get => reviewerName; set => reviewerName = value; }
         public string ReviewText { get => reviewText; set => reviewText = value; }
         public float ReviewScore { get => reviewScore; set => reviewScore = value; }
+        public int Id { get => id; set => id = value; }
 
         public void UpdateName(string _name)
         {
