@@ -10,7 +10,7 @@ namespace RestaurantReviewsWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index","Restaurant");
         }
 
         public ActionResult About()

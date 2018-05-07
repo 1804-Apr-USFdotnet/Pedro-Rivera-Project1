@@ -19,8 +19,7 @@ namespace RestaurantReviewsData
         {
             this.Reviews = new HashSet<Review>();
         }
-
-        
+    
         public int ID { get; set; }
         public string restaurantName { get; set; }
         public string restaurantAddress { get; set; }

@@ -12,14 +12,12 @@ namespace RestaurantReviewsData
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class sysdiagram
     {
-        public int ID { get; set; }
-        public int restaurantID { get; set; }
-        public string reviewerName { get; set; }
-        public string reviewText { get; set; }
-        public Nullable<double> reviewScore { get; set; }
-    
-        public virtual Restaurant Restaurant { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

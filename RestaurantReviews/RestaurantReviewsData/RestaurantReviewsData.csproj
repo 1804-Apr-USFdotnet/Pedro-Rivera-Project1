@@ -80,6 +80,9 @@
     <Compile Include="sp_helpdiagrams_Result.cs">
       <DependentUpon>RestaurantDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>RestaurantDBModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

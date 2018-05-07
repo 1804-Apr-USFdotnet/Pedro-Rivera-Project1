@@ -18,26 +18,37 @@ namespace RestaurantReviewsWeb.Controllers
         // GET: Review/ListReviews/5
         public ActionResult ListReviews(int id)
         {
+            ViewBag.id = id;
             return View(LibHelper.ShowAllReviews(id));
         }
 
         // GET: Review/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.id = id;
             return View();
         }
 
         // POST: Review/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FormCollection collection, int id)
         {
+            
             try
             {
-                // TODO: Add insert logic here
+                Review temp = new Review
+                {
+                    RestaurantID = id,
+                    ReviewerName = collection["reviewerName"],
+                    ReviewScore = (float)Convert.ToDouble(collection["reviewScore"]),
+                    ReviewText = collection["reviewText"]
+                };
 
-                return RedirectToAction("Index");
+                LibHelper.AddReview(temp);
+
+                return RedirectToAction("ListReviews/"+id);
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

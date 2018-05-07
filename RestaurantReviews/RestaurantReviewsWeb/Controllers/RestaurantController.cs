@@ -51,7 +51,7 @@ namespace RestaurantReviewsWeb.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
@@ -60,7 +60,7 @@ namespace RestaurantReviewsWeb.Controllers
         // GET: Restaurant/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(LibHelper.GetRestaurantById(id));
         }
 
         // POST: Restaurant/Edit/5
@@ -70,10 +70,22 @@ namespace RestaurantReviewsWeb.Controllers
             try
             {
                 // TODO: Add update logic here
+                Restaurant temp = new Restaurant
+                {
+                    Id = id,
+                    RestaurantName = collection["restaurantName"],
+                    RestaurantAddress = collection["restaurantAddress"],
+                    RestaurantCity = collection["restaurantCity"],
+                    RestaurantState = collection["restaurantState"],
+                    RestaurantPhoneNumber = collection["restaurantPhoneNumber"],
+                    RestaurantURL = collection["restaurantURL"]
+                    
+                };
+                LibHelper.EditRestaurant(temp);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
@@ -95,7 +107,7 @@ namespace RestaurantReviewsWeb.Controllers
                 LibHelper.DeleteFromDatabase(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

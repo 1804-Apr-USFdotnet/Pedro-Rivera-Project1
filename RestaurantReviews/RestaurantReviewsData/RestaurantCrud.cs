@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Data;
 
 
+
 namespace RestaurantReviewsData
 {
     public class RestaurantCrud
@@ -33,6 +34,12 @@ namespace RestaurantReviewsData
         public void InsertRestaurant(Restaurant restaurant)
         {
             db.Restaurants.Add(restaurant);
+            db.SaveChanges();
+        }
+
+        public void InsertReview(Review review)
+        {
+            db.Reviews.Add(review);
             db.SaveChanges();
         }
         //Read Supplement
@@ -95,6 +102,13 @@ namespace RestaurantReviewsData
             {
                 rest.customerRating = float.Parse(replacement);
             }
+            db.SaveChanges();
+        }
+
+        public void UpdateRestaurant(Restaurant restaurant)
+        {
+            Restaurant oldRest = getRestaurantById(restaurant.ID);
+            db.Entry(oldRest).CurrentValues.SetValues(restaurant);
             db.SaveChanges();
         }
         //Cannot get this to work, wasted too much time on it  

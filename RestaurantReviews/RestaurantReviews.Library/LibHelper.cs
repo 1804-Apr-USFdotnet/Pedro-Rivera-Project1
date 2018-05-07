@@ -23,6 +23,18 @@ namespace RestaurantReviewsLibrary
             crud.InsertRestaurant(temp);
         } 
 
+        public static void AddReview(Review review)
+        {
+            var temp = ReviewObjectToData(review);
+            crud.InsertReview(temp);
+        }
+
+        public static void EditRestaurant(Restaurant restaurant)
+        {
+            var newRest = LibraryToData(restaurant);
+            crud.UpdateRestaurant(newRest);
+        }
+
         static public ICollection<Restaurant> ShowAllRestaurants()
         {
             return DataListToLibraryList(crud.ListRestaurants());
@@ -84,6 +96,7 @@ namespace RestaurantReviewsLibrary
         {
             var dataModel = new RestaurantReviewsData.Restaurant()
             {
+                ID = libModel.Id,
                 restaurantName = libModel.RestaurantName,
                 restaurantAddress = libModel.RestaurantAddress,
                 restaurantCity = libModel.RestaurantCity,
@@ -93,7 +106,7 @@ namespace RestaurantReviewsLibrary
                 Reviews = new List<RestaurantReviewsData.Review>()
             };
             List<RestaurantReviewsLibrary.Review> tempList = libModel.GetStoreReviews();
-            foreach(RestaurantReviewsLibrary.Review r in tempList)
+            foreach (RestaurantReviewsLibrary.Review r in tempList)
             {
                 dataModel.Reviews.Add(ReviewObjectToData(r));
             }
@@ -108,7 +121,6 @@ namespace RestaurantReviewsLibrary
                 ReviewText = data.reviewText,
                 ReviewScore = (float)data.reviewScore,
                 Id = data.ID
-
             };
             return libModel;
         }
@@ -121,7 +133,6 @@ namespace RestaurantReviewsLibrary
                 reviewerName = obj.ReviewerName,
                 reviewText = obj.ReviewText,
                 reviewScore = obj.ReviewScore
-                
             };
             return dataModel;
         }

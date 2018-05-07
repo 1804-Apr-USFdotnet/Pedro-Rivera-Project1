@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<RestaurantReviewsLibrary.Review>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.id })
 </p>
 <table class="table">
     <tr>
@@ -40,6 +40,9 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
+
+    
 }
 
 </table>
+<p>@Html.ActionLink("Back to List", "Index", "Restaurant")</p>
