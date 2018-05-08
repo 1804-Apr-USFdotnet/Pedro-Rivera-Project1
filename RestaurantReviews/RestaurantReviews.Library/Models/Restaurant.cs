@@ -81,7 +81,6 @@ namespace RestaurantReviewsLibrary
             {
                 return 0;
             }
-            
         }
 
         public List<Review> GetStoreReviews()

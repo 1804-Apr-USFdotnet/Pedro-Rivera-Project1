@@ -50,7 +50,8 @@ namespace RestaurantReviewsData
         }
         public ICollection<Review> GetReviewsById(int IdNum)
         {
-            return db.Reviews.Where(rev => rev.restaurantID == IdNum).ToList();
+            var temp = db.Reviews.Where(rev => rev.restaurantID == IdNum).ToList();
+            return temp;
         }
         
         //Read 
@@ -111,44 +112,34 @@ namespace RestaurantReviewsData
             db.Entry(oldRest).CurrentValues.SetValues(restaurant);
             db.SaveChanges();
         }
-        //Cannot get this to work, wasted too much time on it  
-        //public void UpdateRestaurantReviews(Restaurant rest)
-        //{
-        //    Restaurant oldVersion = getRestaurantById(rest.ID);
-        //    Review oldReview, newReview;
-        //   // updatedRest = rest;
-        //   //try instead looping thru updatedRest.REviews and applying values from rest.Reviews
-        //   for(int i = 0; i < oldVersion.Reviews.Count; i++)
-        //    {
-        //        oldReview = oldVersion.Reviews.ElementAt(i);
-        //        newReview = rest.Reviews.Where(x => x.ID == oldReview.ID).FirstOrDefault();
-        //        if (newReview != null)
-        //        {
-        //            oldReview.reviewerName = newReview.reviewerName;
-        //            oldReview.reviewText = newReview.reviewText;
-        //            oldReview.reviewScore = newReview.reviewScore;
-        //        }
-        //        else
-        //        {
-        //            oldVersion.Reviews.Remove(oldReview);
-        //            i--;
-        //        }
-        //    }
-        //   foreach(var r in rest.Reviews)
-        //    {
-        //        oldReview = oldVersion.Reviews.Where(x => x.ID == r.ID).FirstOrDefault();
-        //        if(oldReview == null)
-        //        {
-        //            oldVersion.Reviews.Add(r);
-        //        }
-        //    }
-        //    db.SaveChanges();
-        //}
+        
+        public void UpdateReview(int restId,Review review)
+        {
+            Review oldRev = GetReviewFromRestaurant(restId, review.ID);
+            db.Entry(oldRev).CurrentValues.SetValues(review);
+            db.SaveChanges();
+
+        }
+
+        public Review GetReviewFromRestaurant(int restId, int revId)
+        {
+            List<Review> revList = (List<Review>)GetReviewsById(restId);
+            Review temp = (Review)revList.Where(x => x.ID == revId).FirstOrDefault();
+            return temp;
+        }
+
         //Delete
         public void DeleteRestaurant(int id)
         {
             Restaurant rest = getRestaurantById(id);
             db.Restaurants.Remove(rest);
+            db.SaveChanges();
+        }
+
+        public void DeleteReview(int id)
+        {
+            Review review = db.Reviews.Find(id);
+            db.Reviews.Remove(review);
             db.SaveChanges();
         }
     }

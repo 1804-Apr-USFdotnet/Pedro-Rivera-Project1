@@ -55,42 +55,51 @@ namespace RestaurantReviewsWeb.Controllers
         }
 
         // GET: Review/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int id2)
         {
-            return View();
+            ViewBag.id = id;
+            return View(LibHelper.GetReviewFromRestaurant(id,id2));
         }
-
         // POST: Review/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, int id2, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
+                Review temp = new Review
+                {
+                    Id = id2,
+                    RestaurantID = id,
+                    ReviewerName = collection["reviewerName"],
+                    ReviewText = collection["reviewText"],
+                    ReviewScore = (float)Convert.ToDouble(collection["reviewScore"])
+                };
 
-                return RedirectToAction("Index");
+                LibHelper.EditReview(temp);
+                return RedirectToAction("ListReviews/" + id);
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
         }
-
         // GET: Review/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int id2)
         {
+            ViewBag.id = id; 
             return View();
         }
 
         // POST: Review/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id,int id2 ,FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                LibHelper.DeleteReviewFromDatabase(id2);
+                return RedirectToAction("ListReviews/"+id);
             }
             catch
             {

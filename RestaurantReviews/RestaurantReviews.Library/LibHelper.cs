@@ -12,9 +12,21 @@ namespace RestaurantReviewsLibrary
     {
         private static RestaurantCrud crud = new RestaurantCrud();
 
+        public static Review GetReviewFromRestaurant(int restId, int revId)
+        {
+            List<Review> revList = (List<Review>)ShowAllReviews(restId);
+            Review temp = (Review)revList.Where(x => x.Id == revId).FirstOrDefault();
+            return temp;
+        }
+
         public static void DeleteFromDatabase(int id)
         {
             crud.DeleteRestaurant(id);
+        }
+
+        public static void DeleteReviewFromDatabase(int id)
+        {
+            crud.DeleteReview(id);
         }
 
         public static void AddRestaurant(Restaurant restaurant)
@@ -27,6 +39,12 @@ namespace RestaurantReviewsLibrary
         {
             var temp = ReviewObjectToData(review);
             crud.InsertReview(temp);
+        }
+
+        public static void EditReview(Review review)
+        {
+            var newRev = ReviewObjectToData(review);
+            crud.UpdateReview(newRev.restaurantID,newRev);
         }
 
         public static void EditRestaurant(Restaurant restaurant)
@@ -129,6 +147,7 @@ namespace RestaurantReviewsLibrary
         {
             var dataModel = new RestaurantReviewsData.Review()
             {
+                ID = obj.Id,
                 restaurantID = obj.RestaurantID,
                 reviewerName = obj.ReviewerName,
                 reviewText = obj.ReviewText,

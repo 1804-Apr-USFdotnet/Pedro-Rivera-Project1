@@ -1,0 +1,50 @@
+﻿@model RestaurantReviewsLibrary.Review
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Review</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewScore)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to Reviews", "ListReviews", "Review", new { id = ViewBag.Id }, null)
+    </div>
+    }
+</div>

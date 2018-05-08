@@ -129,11 +129,11 @@
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="Restaurants" EntityType="RestaurantDBModel.Restaurant" />
           <EntitySet Name="Reviews" EntityType="RestaurantDBModel.Review" />
-          <AssociationSet Name="FK_Review_Restaurant" Association="RestaurantDBModel.FK_Review_Restaurant">
+          <EntitySet Name="sysdiagrams" EntityType="RestaurantDBModel.sysdiagram" />
+          <AssociationSet Name="FK__Review__restaura__60A75C0F" Association="RestaurantDBModel.FK__Review__restaura__60A75C0F">
             <End Role="Restaurant" EntitySet="Restaurants" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="RestaurantDBModel.sysdiagram" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -158,7 +158,7 @@
           <Property Name="restaurantPhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="restaurantURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="customerRating" Type="Double" />
-          <NavigationProperty Name="Reviews" Relationship="RestaurantDBModel.FK_Review_Restaurant" FromRole="Restaurant" ToRole="Review" />
+          <NavigationProperty Name="Reviews" Relationship="RestaurantDBModel.FK__Review__restaura__60A75C0F" FromRole="Restaurant" ToRole="Review" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -169,20 +169,8 @@
           <Property Name="reviewerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="reviewText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="reviewScore" Type="Double" />
-          <NavigationProperty Name="Restaurant" Relationship="RestaurantDBModel.FK_Review_Restaurant" FromRole="Review" ToRole="Restaurant" />
+          <NavigationProperty Name="Restaurant" Relationship="RestaurantDBModel.FK__Review__restaura__60A75C0F" FromRole="Review" ToRole="Restaurant" />
         </EntityType>
-        <Association Name="FK_Review_Restaurant">
-          <End Type="RestaurantDBModel.Restaurant" Role="Restaurant" Multiplicity="1" />
-          <End Type="RestaurantDBModel.Review" Role="Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Restaurant">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Review">
-              <PropertyRef Name="restaurantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -193,6 +181,20 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK__Review__restaura__60A75C0F">
+          <End Type="RestaurantDBModel.Restaurant" Role="Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RestaurantDBModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="restaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

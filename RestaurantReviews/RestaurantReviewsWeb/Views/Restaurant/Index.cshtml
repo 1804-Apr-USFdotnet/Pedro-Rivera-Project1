@@ -2,9 +2,17 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Show Top 3 Rated Restaurants","Index", new { sort = ViewBag.Top3})
 </p>
+
+<form asp-controller="Restaurant" asp-action"Index">
+    <p>Search by Restaurant: <input type="text" name="SearchString"
+    <input type="submit" value="Search"/>
+    </p>
+</form>
 <table class="table">
     <tr>
+        <th>@Html.ActionLink("Name","Index", new { sort = ViewBag.NameSort, SearchString = ViewBag.search })</th>
         <th>
             @Html.DisplayNameFor(model => model.RestaurantName)
         </th>
