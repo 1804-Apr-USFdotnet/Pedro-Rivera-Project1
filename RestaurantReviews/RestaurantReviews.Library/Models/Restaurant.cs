@@ -33,7 +33,7 @@ namespace RestaurantReviewsLibrary
         [Required]
         public string RestaurantCity { get => restaurantCity; set => restaurantCity = value; }
         [Required]
-        [StringLength(2, ErrorMessage = "Restaurant Name should be within 2 characters")]
+        [StringLength(2, ErrorMessage = "Restaurant State should be within 2 characters")]
         public string RestaurantState { get => restaurantState; set => restaurantState = value; }
         [Required]
         [DataType(DataType.PhoneNumber)]
