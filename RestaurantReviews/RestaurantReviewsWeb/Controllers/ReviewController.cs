@@ -33,25 +33,32 @@ namespace RestaurantReviewsWeb.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection, int id)
         {
-            
-            try
+            if (ModelState.IsValid)
             {
-                Review temp = new Review
+                try
                 {
-                    RestaurantID = id,
-                    ReviewerName = collection["reviewerName"],
-                    ReviewScore = (float)Convert.ToDouble(collection["reviewScore"]),
-                    ReviewText = collection["reviewText"]
-                };
+                    Review temp = new Review
+                    {
+                        RestaurantID = id,
+                        ReviewerName = collection["reviewerName"],
+                        ReviewScore = (float)Convert.ToDouble(collection["reviewScore"]),
+                        ReviewText = collection["reviewText"]
+                    };
 
-                LibHelper.AddReview(temp);
+                    LibHelper.AddReview(temp);
 
-                return RedirectToAction("ListReviews/"+id);
+                    return RedirectToAction("ListReviews/" + id);
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
             }
-            catch(Exception e)
+            else
             {
-                return View();
+                return View("Model State is invalid.");
             }
+            
         }
 
         // GET: Review/Edit/5
@@ -64,25 +71,33 @@ namespace RestaurantReviewsWeb.Controllers
         [HttpPost]
         public ActionResult Edit(int id, int id2, FormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-                Review temp = new Review
+                try
                 {
-                    Id = id2,
-                    RestaurantID = id,
-                    ReviewerName = collection["reviewerName"],
-                    ReviewText = collection["reviewText"],
-                    ReviewScore = (float)Convert.ToDouble(collection["reviewScore"])
-                };
+                    // TODO: Add update logic here
+                    Review temp = new Review
+                    {
+                        Id = id2,
+                        RestaurantID = id,
+                        ReviewerName = collection["reviewerName"],
+                        ReviewText = collection["reviewText"],
+                        ReviewScore = (float)Convert.ToDouble(collection["reviewScore"])
+                    };
 
-                LibHelper.EditReview(temp);
-                return RedirectToAction("ListReviews/" + id);
+                    LibHelper.EditReview(temp);
+                    return RedirectToAction("ListReviews/" + id);
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
             }
-            catch(Exception e)
+            else
             {
-                return View();
+                return View("Model State is Invalid");
             }
+            
         }
         // GET: Review/Delete/5
         public ActionResult Delete(int id, int id2)

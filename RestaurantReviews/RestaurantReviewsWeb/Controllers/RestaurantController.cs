@@ -57,27 +57,31 @@ namespace RestaurantReviewsWeb.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection) //***TODO*** Need to finish the catch for this methdo
         {
-
-            try
-            {
-                Restaurant temp = new Restaurant
+            if (ModelState.IsValid) {
+                try
                 {
-                    RestaurantName = collection["restaurantName"],
-                    RestaurantAddress = collection["restaurantAddress"],
-                    RestaurantCity = collection["restaurantCity"],
-                    RestaurantState = collection["restaurantState"],
-                    RestaurantPhoneNumber = collection["restaurantPhoneNumber"],
-                    RestaurantURL = collection["restaurantURL"]
+                    Restaurant temp = new Restaurant
+                    {
+                        RestaurantName = collection["restaurantName"],
+                        RestaurantAddress = collection["restaurantAddress"],
+                        RestaurantCity = collection["restaurantCity"],
+                        RestaurantState = collection["restaurantState"],
+                        RestaurantPhoneNumber = collection["restaurantPhoneNumber"],
+                        RestaurantURL = collection["restaurantURL"]
 
-                };
-                LibHelper.AddRestaurant(temp);
+                    };
+                    LibHelper.AddRestaurant(temp);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
             }
-            catch(Exception e)
-            {
-                return View();
-            }
+            else
+                return View("Invalid Model State");
+            
         }
 
         // GET: Restaurant/Edit/5
@@ -90,28 +94,36 @@ namespace RestaurantReviewsWeb.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-                Restaurant temp = new Restaurant
+                try
                 {
-                    Id = id,
-                    RestaurantName = collection["restaurantName"],
-                    RestaurantAddress = collection["restaurantAddress"],
-                    RestaurantCity = collection["restaurantCity"],
-                    RestaurantState = collection["restaurantState"],
-                    RestaurantPhoneNumber = collection["restaurantPhoneNumber"],
-                    RestaurantURL = collection["restaurantURL"]
-                    
-                };
-                LibHelper.EditRestaurant(temp);
+                    // TODO: Add update logic here
+                    Restaurant temp = new Restaurant
+                    {
+                        Id = id,
+                        RestaurantName = collection["restaurantName"],
+                        RestaurantAddress = collection["restaurantAddress"],
+                        RestaurantCity = collection["restaurantCity"],
+                        RestaurantState = collection["restaurantState"],
+                        RestaurantPhoneNumber = collection["restaurantPhoneNumber"],
+                        RestaurantURL = collection["restaurantURL"]
 
-                return RedirectToAction("Index");
+                    };
+                    LibHelper.EditRestaurant(temp);
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
             }
-            catch(Exception e)
+            else
             {
-                return View();
+                return View("Invalid Model State");
             }
+            
         }
 
         // GET: Restaurant/Delete/5

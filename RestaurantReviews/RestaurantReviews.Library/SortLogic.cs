@@ -30,7 +30,7 @@ namespace RestaurantReviewsLibrary
         }
         public ICollection<Restaurant> SearchRestaurantByName(string str, List<Restaurant> tempList)
         {
-            return tempList.FindAll(name => name.RestaurantName.Contains(str)).ToList();
+            return tempList.FindAll(name => name.RestaurantName.ToUpper().Contains(str.ToUpper())).ToList();
         }
     }
 }
