@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantReviewsLibrary
 {
@@ -20,15 +21,30 @@ namespace RestaurantReviewsLibrary
         private string restaurantURL;
 
         private List<Review> storeReviews = new List<Review>();
-        
-           
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get=> id; set => id = value; }
-        public string RestaurantName { get => restaurantName; set => restaurantName = value; } //Will get or set restaurant name for you
+        [Required]
+        [StringLength(25, ErrorMessage = "Restaurant Name should be within 25 characters")]
+        public string RestaurantName { get => restaurantName; set => restaurantName = value; }
+        [Required]
         public string RestaurantAddress { get => restaurantAddress; set => restaurantAddress = value; }
+        [Required]
         public string RestaurantCity { get => restaurantCity; set => restaurantCity = value; }
+        [Required]
+        [StringLength(2, ErrorMessage = "Restaurant Name should be within 2 characters")]
         public string RestaurantState { get => restaurantState; set => restaurantState = value; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [StringLength(15, MinimumLength =10, ErrorMessage="Phone Number should be between 10-15 characters")]
+        [RegularExpression(@"^\+?(\d[\d -. ]+)?(\([\d -. ]+\))?[\d-. ]+\d$", ErrorMessage = "Invalid Phone Number.")]
         public string RestaurantPhoneNumber { get => restaurantPhoneNumber; set => restaurantPhoneNumber = value; }
+        [Required]
+        [DataType(DataType.Url)]
         public string RestaurantURL { get => restaurantURL; set => restaurantURL = value; }
+
+        [NotMapped]
         public float CustomerRating { get => customerRating; set => customerRating = value; }
         public List<Review> StoreReviews { get => storeReviews; set => storeReviews = value; }
 

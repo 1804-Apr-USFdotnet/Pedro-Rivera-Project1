@@ -116,21 +116,21 @@ namespace RestaurantReviewsTests
             Assert.AreEqual(actual, expected,expected.RestaurantName+" "+actual.RestaurantName);
 
         }
-        [TestMethod]
-        public void SearchRestaurantByName_Test()
-        {
-            actualList = new List<Restaurant>();
-            SortLogic sort = new SortLogic();
-            actualList.Add(restaurant1);
-            actualList.Add(restaurant2);
-            actualList.Add(restaurant3);
-            actualList.Add(restaurant4);
-            Restaurant actual = actualList[0];
-            List<Restaurant> expectedList = new List<Restaurant>();
-            expectedList = (List<Restaurant>)sort.SearchRestaurantByName("M",actualList);
-            Restaurant expected = expectedList[0];
-            Assert.AreEqual(actual, expected, expected.RestaurantName + " " + actual.RestaurantName);
-        }
+        //[TestMethod]
+        //public void SearchRestaurantByName_Test()
+        //{
+        //    actualList = new List<Restaurant>();
+        //    SortLogic sort = new SortLogic();
+        //    actualList.Add(restaurant1);
+        //    actualList.Add(restaurant2);
+        //    actualList.Add(restaurant3);
+        //    actualList.Add(restaurant4);
+        //    Restaurant actual = actualList[0];
+        //    List<Restaurant> expectedList = new List<Restaurant>();
+        //    expectedList = (List<Restaurant>)sort.SearchRestaurantByName("M",actualList);
+        //    Restaurant expected = expectedList[0];
+        //    Assert.AreEqual(actual, expected, expected.RestaurantName + " " + actual.RestaurantName);
+        //}
     }
         
 

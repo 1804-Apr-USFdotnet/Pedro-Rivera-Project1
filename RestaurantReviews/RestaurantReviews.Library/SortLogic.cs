@@ -26,7 +26,7 @@ namespace RestaurantReviewsLibrary
         }
         public ICollection<Restaurant> SortByNameAscending(List<Restaurant> tempList)
         {
-            return tempList.OrderBy(name => name.RestaurantName).ToList();
+            return tempList.OrderBy(name =>name.RestaurantName).ToList();
         }
         public ICollection<Restaurant> SearchRestaurantByName(string str, List<Restaurant> tempList)
         {
